@@ -3,3 +3,9 @@
 .springBeans
 .settings
 target/
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
+src/main/main.iml
+src/test/test.iml
