@@ -1,6 +1,8 @@
 package com.aiolos.sloot.controller;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -28,6 +30,7 @@ public class UserControllerTest {
 	private static final String PASSWORD = "1234";
 	private static final int STUDENT_NUM = 12109369;
 	private static final String NAME = "이희백";
+	private static final String POSITION = "회원";
 	private static final String SEX = "남";
 	private static final String PHONE_NUMBER = "010-4455-4006";
 	
@@ -48,21 +51,44 @@ public class UserControllerTest {
 	public void insert() throws Exception {
 		userDao.deleteUser(ID);
     	
-        String jsonParm = "{" +
+        String jsonParam = "{" +
                 "\"id\" : \"" + ID + "\"," +
                 "\"password\" : \"" + PASSWORD + "\"," +
                 "\"student_num\" : \"" + STUDENT_NUM + "\"," +
                 "\"name\" : \"" + NAME + "\"," +
+                "\"position\" : \"" + POSITION + "\"," +
                 "\"sex\" : \"" + SEX + "\"," +
                 "\"phone_number\" : \"" + PHONE_NUMBER + "\"" +
                 "}";
 
-        this.mockMvc.perform(post("/user").contentType(MediaType.APPLICATION_JSON).content(jsonParm))
+        this.mockMvc.perform(post("/user").contentType(MediaType.APPLICATION_JSON).content(jsonParam))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andExpect(jsonPath("$.code").value("200"))
                 .andReturn();
-
+	}
+	
+	@Test
+	public void getUserList() throws Exception {
+		this.mockMvc.perform(get("/user/list").contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(jsonPath("$.code").value("200"))
+        .andReturn();
+	}
+	
+	String jsonParam = "{" + 
+			"\"id\" : \"paella1421\" ," +
+			"\"password\" : \"000999\""+ 
+			"}";
+	
+	@Test
+	public void update() throws Exception {
+		this.mockMvc.perform(put("/user").contentType(MediaType.APPLICATION_JSON).content(jsonParam))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType("application/json;charset=UTF-8"))
+        .andExpect(jsonPath("$.code").value("200"))
+        .andReturn();
 	}
 
 }

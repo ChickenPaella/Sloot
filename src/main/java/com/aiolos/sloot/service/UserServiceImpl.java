@@ -20,8 +20,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public boolean updateUser(String password) {
-		return userDao.updateUser(password);
+	public boolean updateUser(UserVO user) {
+		return userDao.updateUser(user);
 	}
 
 	@Override
@@ -41,7 +41,10 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean login(String id, String password) {
-		return userDao.login(id, password);
+		if(userDao.login(id).getPassword().equals(password)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
-
 }

@@ -11,6 +11,7 @@ public class UserVO {
 	@JsonProperty("student_num")
 	private int studentNum;
 	private String name;
+	private String position;
 	private String sex;
 	@JsonProperty("phone_number")
 	private String phoneNumber;
@@ -59,6 +60,14 @@ public class UserVO {
 		this.name = name;
 	}
 
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
 	public String getSex() {
 		return sex;
 	}
@@ -94,7 +103,7 @@ public class UserVO {
 	@Override
 	public String toString() {
 		return "UserVO [seq=" + seq + ", id=" + id + ", password=" + password + ", studentNum=" + studentNum + ", name="
-				+ name + ", sex=" + sex + ", phoneNumber=" + phoneNumber + ", regDate=" + regDate + ", updateDate="
-				+ updateDate + "]";
+				+ name + ", position=" + position + ", sex=" + sex + ", phoneNumber=" + phoneNumber + ", regDate="
+				+ regDate + ", updateDate=" + updateDate + "]";
 	}
 }

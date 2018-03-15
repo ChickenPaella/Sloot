@@ -7,7 +7,7 @@ import com.aiolos.sloot.vo.UserVO;
 public interface UserService {
 	boolean insertUser(UserVO user);
 
-	boolean updateUser(String password);
+	boolean updateUser(UserVO user);
 
 	int deleteUser(String id);
 

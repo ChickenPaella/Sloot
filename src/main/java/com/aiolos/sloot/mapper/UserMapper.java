@@ -27,8 +27,8 @@ public class UserMapper implements UserDao {
 	}
 
 	@Override
-	public boolean updateUser(String password) {
-		if (sqlSessionTemplate.update(NAMESPACE + ".updateUser", password) > 0) {
+	public boolean updateUser(UserVO user) {
+		if (sqlSessionTemplate.update(NAMESPACE + ".updateUser", user) > 0) {
 			return true;
 		} else {
 			return false;
@@ -42,22 +42,16 @@ public class UserMapper implements UserDao {
 
 	@Override
 	public UserVO getUser(String id) {
-		return sqlSessionTemplate.selectOne(NAMESPACE + ".selectUser", id);
+		return sqlSessionTemplate.selectOne(NAMESPACE + ".getUser", id);
 	}
 
 	@Override
 	public List<UserVO> getUserList() {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSessionTemplate.selectList(NAMESPACE + ".getUserList");
 	}
 
 	@Override
-	public boolean login(String id, String password) {
-		UserVO user = sqlSessionTemplate.selectOne(NAMESPACE + ".selectUser", id);
-		if(user.getPassword() == password) {
-			return true;
-		} else {
-			return false;
-		}
+	public UserVO login(String id) {
+		return sqlSessionTemplate.selectOne(NAMESPACE + ".getUser", id);
 	}
 }

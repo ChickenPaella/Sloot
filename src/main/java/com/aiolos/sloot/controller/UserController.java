@@ -13,7 +13,8 @@ import com.aiolos.sloot.service.UserService;
 import com.aiolos.sloot.util.ResultView;
 import com.aiolos.sloot.vo.UserVO;
 
-@RestController(value = "/user")
+@RestController
+@RequestMapping(value = "/user")
 public class UserController {
 
 	private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
@@ -21,7 +22,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping(method = RequestMethod.POST, consumes = "application/json; charset=utf8")
+	@RequestMapping(method = RequestMethod.POST, consumes = "application/json; charset=utf-8")
 	public ResultView insertUser(@RequestBody UserVO user) {
 		if(userService.insertUser(user)) {
 			return new ResultView(200, "SUCESS", user);
@@ -31,8 +32,8 @@ public class UserController {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT, consumes = "application/json")
-	public ResultView updateUser(String password) {
-		if(userService.updateUser(password)) {
+	public ResultView updateUser(@RequestBody UserVO user) {
+		if(userService.updateUser(user)) {
 			return new ResultView(200, "SUCESS", null);
 		} else {
 			return new ResultView(500, "FAIL", null);
@@ -53,9 +54,13 @@ public class UserController {
 		return null;
 	}
 
-	@RequestMapping(value = "/list", method = RequestMethod.GET, consumes = "application/json")
+	@RequestMapping(value = "/list", method = RequestMethod.GET, consumes = "application/json; charset=utf-8")
 	public ResultView getUserList() {
-		return null;
+		try{
+			return new ResultView(200, "SUCESS", userService.getUserList());
+		} catch(Exception e) {
+			return new ResultView(500, "FAIL", null);
+		}
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = "application/json")

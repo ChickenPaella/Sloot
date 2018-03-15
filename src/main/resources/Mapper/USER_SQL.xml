@@ -9,8 +9,8 @@
 	</resultMap>
 
 	<insert id="insertUser">
-		insert into user(seq, id, password, student_num, name, sex, phone_number)
-		values ((select ifnull(max(seq), 0)+1 from user u), #{id}, #{password}, #{studentNum}, #{name}, #{sex}, #{phoneNumber})
+		insert into user(seq, id, password, student_num, name, position, sex, phone_number)
+		values ((select ifnull(max(seq), 0)+1 from user u), #{id}, #{password}, #{studentNum}, #{name}, #{position}, #{sex}, #{phoneNumber})
 	</insert>
 	
 	<update id="updateUser">
