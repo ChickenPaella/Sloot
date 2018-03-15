@@ -15,23 +15,23 @@ public class UserServiceImpl implements UserService{
 	private UserDao userDao;
 	
 	@Override
-	public boolean insertUser() {
-		return userDao.insertUser();
+	public boolean insertUser(UserVO user) {
+		return userDao.insertUser(user);
 	}
 
 	@Override
-	public boolean updateUser() {
-		return userDao.updateUser();
+	public boolean updateUser(UserVO user) {
+		return userDao.updateUser(user);
 	}
 
 	@Override
-	public int deleteUser() {
-		return userDao.deleteUser();
+	public int deleteUser(String id) {
+		return userDao.deleteUser(id);
 	}
 
 	@Override
-	public UserVO getUser() {
-		return userDao.getUser();
+	public UserVO getUser(String id) {
+		return userDao.getUser(id);
 	}
 
 	@Override
@@ -39,4 +39,12 @@ public class UserServiceImpl implements UserService{
 		return userDao.getUserList();
 	}
 
+	@Override
+	public boolean login(String id, String password) {
+		if(userDao.login(id).getPassword().equals(password)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

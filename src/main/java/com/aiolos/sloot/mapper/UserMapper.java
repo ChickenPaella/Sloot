@@ -12,12 +12,14 @@ import com.aiolos.sloot.vo.UserVO;
 @Repository
 public class UserMapper implements UserDao {
 
+	private static final String NAMESPACE = "user";
+	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
-	
+
 	@Override
-	public boolean insertUser() {
-		if(sqlSessionTemplate.insert("") > 0) {
+	public boolean insertUser(UserVO user) {
+		if (sqlSessionTemplate.insert(NAMESPACE + ".insertUser", user) > 0) {
 			return true;
 		} else {
 			return false;
@@ -25,26 +27,31 @@ public class UserMapper implements UserDao {
 	}
 
 	@Override
-	public boolean updateUser() {
-		return false;
+	public boolean updateUser(UserVO user) {
+		if (sqlSessionTemplate.update(NAMESPACE + ".updateUser", user) > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
-	public int deleteUser() {
-		// TODO Auto-generated method stub
-		return 0;
+	public int deleteUser(String id) {
+		return sqlSessionTemplate.delete(NAMESPACE + ".deleteUser", id);
 	}
 
 	@Override
-	public UserVO getUser() {
-		// TODO Auto-generated method stub
-		return null;
+	public UserVO getUser(String id) {
+		return sqlSessionTemplate.selectOne(NAMESPACE + ".getUser", id);
 	}
 
 	@Override
 	public List<UserVO> getUserList() {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSessionTemplate.selectList(NAMESPACE + ".getUserList");
 	}
 
+	@Override
+	public UserVO login(String id) {
+		return sqlSessionTemplate.selectOne(NAMESPACE + ".getUser", id);
+	}
 }

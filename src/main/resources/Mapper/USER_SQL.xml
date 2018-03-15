@@ -1,1 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+	<resultMap type="com.aiolos.sloot.vo.UserVO" id="User">
+		<result property="studentNum" column="student_num"/>
+		<result property="phoneNumber" column="phone_number"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="updateDate" column="update_date"/>
+	</resultMap>
+
+	<insert id="insertUser">
+		insert into user(seq, id, password, student_num, name, position, sex, phone_number)
+		values ((select ifnull(max(seq), 0)+1 from user u), #{id}, #{password}, #{studentNum}, #{name}, #{position}, #{sex}, #{phoneNumber})
+	</insert>
+	
+	<update id="updateUser">
+		update user
+		set password=#{password}, update_date=now()
+		where id=#{id}
+	</update>
+
+	<delete id="deleteUser">
+		delete from user
+		where id=#{id}
+	</delete>
+
+	<select id="getUser" resultMap="User">
+		select *
+		from user
+		where id=#{id}
+	</select>
+
+	<select id="getUserList" resultMap="User">
+		select *
+		from user
+	</select>
+</mapper>

@@ -5,13 +5,15 @@ import java.util.List;
 import com.aiolos.sloot.vo.UserVO;
 
 public interface UserService {
-boolean insertUser();
-	
-	boolean updateUser();
-	
-	int deleteUser();
-	
-	UserVO getUser();
-	
+	boolean insertUser(UserVO user);
+
+	boolean updateUser(UserVO user);
+
+	int deleteUser(String id);
+
+	UserVO getUser(String id);
+
 	List<UserVO> getUserList();
+
+	boolean login(String id, String password);
 }
